@@ -137,8 +137,8 @@ export function cubicBezier(
     const ax = 1.0 - cx - bx;
     
     const cy = 3.0 * y1;
-    const by = 3.0 * (y2 - y1) - cy;
-    const ay = 1.0 - cy - by;
+    // const by = 3.0 * (y2 - y1) - cy; // Not used in calculation
+    // const ay = 1.0 - cy - by; // Not used in calculation
     
     return ((ax * t + bx) * t + cx) * t;
   };
