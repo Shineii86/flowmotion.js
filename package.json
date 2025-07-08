@@ -42,15 +42,15 @@
   ],
   "author": {
     "name": "FlowMotion Contributors",
-    "url": "https://github.com/flowmotion/flowmotion"
+    "url": "https://github.com/Shineii86/flowmotion.js"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/flowmotion/flowmotion.git"
+    "url": "https://github.com/Shineii86/flowmotion.js.git"
   },
   "bugs": {
-    "url": "https://github.com/flowmotion/flowmotion/issues"
+    "url": "https://github.com/Shineii86/flowmotion.js/issues"
   },
   "homepage": "https://flowmotion.dev",
   "devDependencies": {
