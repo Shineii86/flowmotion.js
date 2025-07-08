@@ -1,0 +1,86 @@
+{
+  "name": "@flowmotion/core",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A modern, lightweight JavaScript animation library with TypeScript support",
+  "main": "dist/flowmotion.cjs.js",
+  "module": "dist/flowmotion.esm.js",
+  "types": "dist/index.d.ts",
+  "unpkg": "dist/flowmotion.umd.js",
+  "jsdelivr": "dist/flowmotion.umd.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts,.js",
+    "lint:fix": "eslint src --ext .ts,.js --fix",
+    "format": "prettier --write \"src/**/*.{ts,js}\"",
+    "type-check": "tsc --noEmit",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "prepublishOnly": "npm run build",
+    "size": "bundlesize"
+  },
+  "keywords": [
+    "animation",
+    "javascript",
+    "typescript",
+    "css",
+    "dom",
+    "motion",
+    "ui",
+    "frontend",
+    "library"
+  ],
+  "author": {
+    "name": "FlowMotion Contributors",
+    "url": "https://github.com/flowmotion/flowmotion"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flowmotion/flowmotion.git"
+  },
+  "bugs": {
+    "url": "https://github.com/flowmotion/flowmotion/issues"
+  },
+  "homepage": "https://flowmotion.dev",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/jest": "^29.5.8",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "bundlesize": "^0.18.1",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "prettier": "^3.1.0",
+    "rollup": "^4.6.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "ts-jest": "^29.1.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.2",
+    "vitepress": "^1.0.0-rc.31"
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/flowmotion.umd.js",
+      "maxSize": "15 kB"
+    }
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
