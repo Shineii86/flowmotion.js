@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowMotion.js - Basic Examples</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .demo-box {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 10px;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .demo-box:hover {
+            transform: scale(1.05);
+        }
+
+        .controls {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid #4ecdc4;
+            overflow-x: auto;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #4ecdc4;
+            border-radius: 50%;
+            margin: 20px auto;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #4ecdc4, #44a08d);
+            transition: width 0.3s ease;
+        }
+
+        .stagger-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .stagger-item {
+            width: 40px;
+            height: 40px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FlowMotion Examples</h1>
+
+        <!-- Basic Animation -->
+        <div class="demo-section">
+            <h2>🎯 Basic Animation</h2>
+            <p>Click the box to see a basic opacity and transform animation</p>
+            <div class="demo-box" id="basic-box">Click Me</div>
+            <div class="code-block">
+flowMotion({
+  targets: '#basic-box',
+  properties: {
+    opacity: [1, 0, 1],
+    scale: [1, 1.5, 1],
+    rotate: '360deg'
+  },
+  duration: 2000,
+  easing: 'easeInOutCubic'
+});
+            </div>
+        </div>
+
+        <!-- Multiple Elements -->
+        <div class="demo-section">
+            <h2>🎪 Multiple Elements</h2>
+            <p>Animate multiple elements with different delays</p>
+            <div class="demo-grid">
+                <div class="demo-box multi-box">Box 1</div>
+                <div class="demo-box multi-box">Box 2</div>
+                <div class="demo-box multi-box">Box 3</div>
+                <div class="demo-box multi-box">Box 4</div>
+            </div>
+            <div class="controls">
+                <button onclick="animateMultiple()">Animate All</button>
+                <button onclick="resetMultiple()">Reset</button>
+            </div>
+        </div>
+
+        <!-- Easing Functions -->
+        <div class="demo-section">
+            <h2>📈 Easing Functions</h2>
+            <p>Try different easing functions</p>
+            <div class="demo-box" id="easing-box">Easing</div>
+            <div class="controls">
+                <button onclick="animateEasing('easeInOut')">Ease In Out</button>
+                <button onclick="animateEasing('easeOutBounce')">Bounce</button>
+                <button onclick="animateEasing('easeInOutElastic')">Elastic</button>
+                <button onclick="animateEasing('easeOutBack')">Back</button>
+            </div>
+        </div>
+
+        <!-- Loading Animation -->
+        <div class="demo-section">
+            <h2>🔄 Loading Animation</h2>
+            <p>Continuous rotation animation with controls</p>
+            <div class="loading-spinner" id="spinner"></div>
+            <div class="controls">
+                <button onclick="startLoading()">Start Loading</button>
+                <button onclick="stopLoading()">Stop Loading</button>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="demo-section">
+            <h2>📊 Progress Animation</h2>
+            <p>Animate a progress bar from 0 to 100%</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            <div class="controls">
+                <button onclick="animateProgress()">Animate Progress</button>
+                <button onclick="resetProgress()">Reset</button>
+            </div>
+        </div>
+
+        <!-- Staggered Animation -->
+        <div class="demo-section">
+            <h2>⚡ Staggered Animation</h2>
+            <p>Elements animate one after another with stagger delay</p>
+            <div class="stagger-container">
+                <div class="stagger-item"></div>
+                <div class="stagger-item"></div>
+                <div class="stagger-item"></div>
+                <div class="stagger-item"></div>
+                <div class="stagger-item"></div>
+            </div>
+            <div class="controls">
+                <button onclick="animateStagger()">Stagger In</button>
+                <button onclick="resetStagger()">Reset</button>
+            </div>
+        </div>
+
+        <!-- Timeline Example -->
+        <div class="demo-section">
+            <h2>🎬 Timeline Animation</h2>
+            <p>Complex sequence using timeline</p>
+            <div class="demo-grid">
+                <div class="demo-box timeline-box">T1</div>
+                <div class="demo-box timeline-box">T2</div>
+                <div class="demo-box timeline-box">T3</div>
+            </div>
+            <div class="controls">
+                <button onclick="playTimeline()">Play Timeline</button>
+                <button onclick="pauseTimeline()">Pause</button>
+                <button onclick="restartTimeline()">Restart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FlowMotion Library -->
+    <script src="../dist/flowmotion.umd.js"></script>
+    
+    <script>
+        // Store animation references
+        let loadingAnimation = null;
+        let currentTimeline = null;
+
+        // Basic animation on click
+        document.getElementById('basic-box').addEventListener('click', function() {
+            FlowMotion({
+                targets: this,
+                properties: {
+                    opacity: [1, 0.3, 1],
+                    scale: [1, 1.5, 1],
+                    rotate: '360deg'
+                },
+                duration: 2000,
+                easing: 'easeInOutCubic'
+            });
+        });
+
+        // Multiple elements animation
+        function animateMultiple() {
+            const boxes = document.querySelectorAll('.multi-box');
+            boxes.forEach((box, index) => {
+                FlowMotion({
+                    targets: box,
+                    properties: {
+                        translateY: '-50px',
+                        opacity: [1, 0.5, 1],
+                        backgroundColor: ['#ff6b6b', '#4ecdc4', '#ff6b6b']
+                    },
+                    duration: 1000,
+                    delay: index * 200,
+                    easing: 'easeOutCubic'
+                });
+            });
+        }
+
+        function resetMultiple() {
+            const boxes = document.querySelectorAll('.multi-box');
+            boxes.forEach(box => {
+                FlowMotion({
+                    targets: box,
+                    properties: {
+                        translateY: '0px',
+                        opacity: 1,
+                        backgroundColor: '#ff6b6b'
+                    },
+                    duration: 500
+                });
+            });
+        }
+
+        // Easing function demonstrations
+        function animateEasing(easingType) {
+            FlowMotion({
+                targets: '#easing-box',
+                properties: {
+                    translateX: ['0px', '200px', '0px']
+                },
+                duration: 2000,
+                easing: easingType
+            });
+        }
+
+        // Loading animation
+        function startLoading() {
+            if (loadingAnimation) {
+                loadingAnimation.restart();
+            } else {
+                loadingAnimation = FlowMotion({
+                    targets: '#spinner',
+                    properties: {
+                        rotate: '360deg'
+                    },
+                    duration: 1000,
+                    loop: true,
+                    easing: 'linear'
+                });
+            }
+        }
+
+        function stopLoading() {
+            if (loadingAnimation) {
+                loadingAnimation.pause();
+            }
+        }
+
+        // Progress bar animation
+        function animateProgress() {
+            FlowMotion({
+                targets: '#progress',
+                properties: {
+                    width: '100%'
+                },
+                duration: 3000,
+                easing: 'easeOutCubic'
+            });
+        }
+
+        function resetProgress() {
+            FlowMotion({
+                targets: '#progress',
+                properties: {
+                    width: '0%'
+                },
+                duration: 500
+            });
+        }
+
+        // Staggered animation
+        function animateStagger() {
+            const items = document.querySelectorAll('.stagger-item');
+            items.forEach((item, index) => {
+                FlowMotion({
+                    targets: item,
+                    properties: {
+                        opacity: 1,
+                        translateY: '0px',
+                        scale: [0.5, 1.2, 1]
+                    },
+                    duration: 800,
+                    delay: index * 150,
+                    easing: 'easeOutBack'
+                });
+            });
+        }
+
+        function resetStagger() {
+            FlowMotion({
+                targets: '.stagger-item',
+                properties: {
+                    opacity: 0,
+                    translateY: '20px',
+                    scale: 1
+                },
+                duration: 300
+            });
+        }
+
+        // Timeline example
+        function playTimeline() {
+            currentTimeline = FlowMotion.timeline();
+            
+            currentTimeline
+                .add({
+                    targets: '.timeline-box:nth-child(1)',
+                    properties: { 
+                        translateX: '100px',
+                        backgroundColor: '#4ecdc4'
+                    },
+                    duration: 1000,
+                    easing: 'easeOutCubic'
+                })
+                .add({
+                    targets: '.timeline-box:nth-child(2)',
+                    properties: { 
+                        translateY: '-50px',
+                        rotate: '180deg'
+                    },
+                    duration: 800
+                }, 500) // Start 500ms after previous
+                .add({
+                    targets: '.timeline-box:nth-child(3)',
+                    properties: { 
+                        scale: 1.5,
+                        opacity: 0.5
+                    },
+                    duration: 600
+                }, '-=400'); // Start 400ms before previous ends
+        }
+
+        function pauseTimeline() {
+            if (currentTimeline) {
+                currentTimeline.pause();
+            }
+        }
+
+        function restartTimeline() {
+            if (currentTimeline) {
+                currentTimeline.restart();
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('FlowMotion Examples Loaded');
+            console.log('FlowMotion version:', FlowMotion.version);
+        });
+    </script>
+</body>
+</html>
