@@ -30,6 +30,7 @@ const baseConfig = {
       outDir: 'dist',
       declaration: true,
       declarationDir: 'dist'
+      sourceMap: true
     })
   ]
 };
